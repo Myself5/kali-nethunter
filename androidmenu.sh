@@ -69,6 +69,8 @@ source devices/nexus7-flo-deb
 source devices/nexus5-hammerhead
 source devices/nexus4-mako
 source devices/one-bacon
+source devices/sony-sirius
+source devices/sony-leo
 
 ######### Set paths and permissions  #######
 
@@ -150,6 +152,8 @@ echo -e "\e[31m	[2] Build for Samsung Devices \e[0m"
 echo ""
 echo -e "\e[31m	[3] Build for OnePlus One Devices \e[0m"
 echo ""
+echo -e "\e[31m	[4] Build for Sony Devices \e[0m"
+echo ""
 if [ -f "${basedir}/flashkernel/kernel/kernel" ] && [ -d "${basedir}/flash" ]; then
 echo "	[77] Inject finished rootfs/kernel into ROM"
 fi
@@ -168,6 +172,7 @@ case $menuchoice in
 1) d_clear; f_interface_nexus ;;
 2) d_clear; f_interface_samsung ;;
 3) d_clear; f_interface_oneplus ;;
+4) d_clear; f_interface_sony ;;
 77) d_clear; f_rom_build; f_interface ;;
 88) d_clear; f_rootfs ; f_flashzip; f_zip_save; f_interface ;;
 99) f_cleanup; f_interface ;;
@@ -263,6 +268,33 @@ case $grouper_menuchoice in
 2) d_clear; f_oneplus_kernel ; f_zip_kernel_save ;;
 3) d_clear; f_rootfs ; f_flashzip ; f_oneplus_kernel5 ; f_zip_save ; f_zip_kernel_save ; f_rom_build ;;
 4) d_clear; f_oneplus_kernel5 ; f_zip_kernel_save ;;
+0) d_clear; f_interface ;;
+*) echo "Incorrect choice... " ;
+esac
+}
+
+f_interface_sony(){
+echo -e "\e[31m ------------------------- Sony Xperia Z2 (sirius) --------------------\e[0m"
+echo ""
+echo "  [1] Build All - Kali rootfs and Kernel (Android 5)"
+echo "  [2] Build Kernel Only (Android 5)"
+echo -e "\e[31m ------------------------- Sony Xperia Z3 (leo) --------------------\e[0m"
+echo ""
+echo "  [3] Build All - Kali rootfs and Kernel (Android 5)"
+echo "  [4] Build Kernel Only (Android 5)"
+echo "  [0] Exit to Main Menu"
+echo ""
+echo ""
+# wait for character input
+
+read -p "Choice: " sony_menuchoice
+
+case $sony_menuchoice in
+
+1) d_clear; f_rootfs ; f_flashzip ; f_sony_kernel_z2 ; f_zip_save ; f_zip_kernel_save ; f_rom_build ;;
+2) d_clear; f_sony_kernel_z2 ; f_zip_kernel_save ;;
+3) d_clear; f_rootfs ; f_flashzip ; f_sony_kernel_z3 ; f_zip_save ; f_zip_kernel_save ; f_rom_build ;;
+4) d_clear; f_sony_kernel_z3 ; f_zip_kernel_save ;;
 0) d_clear; f_interface ;;
 *) echo "Incorrect choice... " ;
 esac
